@@ -1,6 +1,7 @@
 const express = require("express");
-const User = require("./userSchema");
 const dbConnect = require("./db");
+const User = require("./schema");
+
 const app = express();
 app.use(express.json());
 
@@ -27,7 +28,7 @@ app.delete("/:id", async (req, res) => {
   res.send(data);
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(8113, () => {
+  console.log("Server is running on port 8113");
   dbConnect();
 });
