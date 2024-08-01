@@ -1,6 +1,7 @@
 const express = require("express");
 const dbConnect = require("./db");
 const User = require("./schema");
+const isValid = require("./middleware/isValidate");
 
 const app = express();
 app.use(express.json());
@@ -10,7 +11,7 @@ app.get("/", async (req, res) => {
   res.send(data);
 });
 
-app.post("/", async (req, res) => {
+app.post("/", isValid, async (req, res) => {
   let user = await User.create(req.body);
   res.send(user);
 });

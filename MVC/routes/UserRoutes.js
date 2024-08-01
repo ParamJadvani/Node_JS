@@ -10,5 +10,3 @@ hi.get("/", getUser);
 hi.post("/", createUser);
 
 module.exports={hi};
-
-
