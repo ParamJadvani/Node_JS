@@ -10,4 +10,18 @@ const createProduct = async (req, res) => {
   res.send(data);
 };
 
-module.exports = { getProduct, createProduct };
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  await Product.findByIdAndDelete(id);
+  res.send(`Product with id ${id} deleted successfully.`);
+};
+
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  res.send(updatedProduct);
+};
+
+module.exports = { getProduct, createProduct, updateProduct, deleteProduct };
