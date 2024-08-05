@@ -22,9 +22,15 @@ const deleteTaskData = async (req, res) => {
   res.send(`Task with id ${id} deleted successfully.`);
 };
 
+const findById=async(req,res)=>{
+  let{id}=req.params
+  let data=await Task.findById(id)
+  res.send(data)
+}
 module.exports = {
   getTaskData,
   createTaskData,
   updateTaskData,
   deleteTaskData,
+  findById
 };
