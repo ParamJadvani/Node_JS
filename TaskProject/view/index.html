@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="../public/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav">
+      <nav class="navbar">
+        <div class="nav-item"><a href="./login.html">Login</a></div>
+        <div class="nav-item"><a href="./signup.html">Signup</a></div>
+      </nav>
+    </div>
+    <div class="content">
+      <div>
+        <form id="taskManager">
+          <label>Title</label>
+          <input
+            type="text"
+            placeholder="Enter Task title"
+            id="title"
+            required
+          />
+          <label>Description</label>
+          <input
+            type="text"
+            placeholder="Enter Task Description"
+            id="description"
+            required
+          />
+          <button type="submit" style="width: 100px">submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="task-container">
+      <h1>Task List</h1>
+      <div id="task-list">
+        <!-- Tasks will be dynamically inserted here -->
+      </div>
+    </div>
+  </body>
+  <script src="../public/JS/home.js" type="module"></script>
+</html>
