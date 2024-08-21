@@ -50,10 +50,14 @@ const fileOperations = () => {
     case 5:
       const appendFileName = prompt("Please enter the file name to append: ");
       const appendContent = prompt("Please enter the content to append: ");
-      fs.appendFile(appendFileName, appendContent, (err) => {
-        if (err) throw err;
-        console.log(`Content has been appended to ${appendFileName}.`);
-      });
+      fs.appendFile(
+        appendFileName,
+        appendContent ? appendContent : "Hello World !",
+        (err) => {
+          if (err) throw err;
+          console.log(`Content has been appended to ${appendFileName}.`);
+        }
+      );
       break;
 
     default:
