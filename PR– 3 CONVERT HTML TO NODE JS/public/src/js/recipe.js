@@ -17,6 +17,8 @@ const getData = (event) => {
     country,
     veg,
   };
+
+  addDataToDB(recipe);
 };
 
 const addDataToDB = async (data) => {

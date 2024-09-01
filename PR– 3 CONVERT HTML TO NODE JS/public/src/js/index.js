@@ -43,4 +43,8 @@ const createProduct = (data) => {
   parent.appendChild(card);
 };
 
+document.getElementById("add").addEventListener("click", () => {
+  window.location.href = "recipe.html";
+});
+
 getDataFromDB();

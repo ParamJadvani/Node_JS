@@ -1,9 +1,8 @@
 const path = require("path");
 const initialRecipe = require("./recipes_DB");
 
-module.exports.globalRoute = (req, res) => {
+module.exports.globalRoute = (req, res) =>
   res.send("Welcome to the Recipe API!");
-};
 
 module.exports.openIndexFile = (req, res) =>
   res.sendFile(path.join(__dirname, "../public/index.html"));

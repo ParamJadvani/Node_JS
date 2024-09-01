@@ -4,6 +4,7 @@ const PORT = 8090;
 const app = express();
 
 const { checkPostData } = require("./middlewares/postdata");
+const initialRecipe = require("./recipe/recipes_DB");
 const {
   globalRoute,
   openIndexFile,
@@ -15,33 +16,82 @@ const {
   deleteRecipe,
 } = require("./recipe/routes");
 
-// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
 
-// Route to respond with a welcome message at the root ("/")
-app.get("/", globalRoute);
+app.get("/", (req, res) => res.send("Welcome to the Recipe API!"));
 
-// Route to serve the index.html file at "/index"
-app.get("/index", openIndexFile);
+app.get("/index", (req, res) =>
+  res.sendFile(path.join(__dirname, "../public/index.html"))
+);
 
-// Serve the recipe.html file for adding new recipes at "/add"
-app.get("/add", openRecipeFile);
+app.get("/add", (req, res) =>
+  res.sendFile(path.join(__dirname, "../public/recipe.html"))
+);
 
-// API routes
-app.get("/recipe/all", getRecipe);
-app.get("/recipe/filter", filterData);
+app.get("/recipe/all", (req, res) => res.send(initialRecipe));
 
-app.post("/recipe/add", checkPostData, createRecipe);
+app.get("/recipe/filter", (req, res) => {
+  const { veg, sort, country } = req.query;
+  let filteredRecipes = initialRecipe;
 
-app.patch("/recipe/update/:id", updateRecipe);
+  if (veg)
+    filteredRecipes = filteredRecipes.filter((e) => e.veg === (veg === "true"));
 
-app.delete("/recipe/delete/:id", deleteRecipe);
+  if (country)
+    filteredRecipes = filteredRecipes.filter(
+      (e) => e.country.toLowerCase() === country.toLowerCase()
+    );
 
-// Start the server
+  if (sort) {
+    if (sort === "htl")
+      filteredRecipes = filteredRecipes.sort(
+        (a, b) => b.cookingTime - a.cookingTime
+      );
+    else if (sort === "lth")
+      filteredRecipes = filteredRecipes.sort(
+        (a, b) => a.cookingTime - b.cookingTime
+      );
+  }
+
+  res.json(filteredRecipes);
+});
+
+app.post("/recipe/add", checkPostData, (req, res) => {
+  const newRecipe = {
+    ...req.body,
+    id: initialRecipe.length
+      ? initialRecipe[initialRecipe.length - 1].id + 1
+      : 1,
+  };
+  initialRecipe.push(newRecipe);
+  res.send(newRecipe);
+});
+
+app.patch("/recipe/update/:id", (req, res) => {
+  const { id } = req.params;
+  const recipeIndex = initialRecipe.findIndex(
+    (recipe) => recipe.id === parseInt(id)
+  );
+
+  if (recipeIndex === -1) return res.status(404).send("Recipe not found");
+
+  initialRecipe[recipeIndex] = { ...initialRecipe[recipeIndex], ...req.body };
+  res.json(initialRecipe);
+});
+
+app.delete("/recipe/delete/:id", (req, res) => {
+  const { id } = req.params;
+  const recipeIndex = initialRecipe.findIndex((e) => e.id === parseInt(id));
+
+  if (recipeIndex === -1) return res.status(404).send("Recipe not found");
+
+  initialRecipe.splice(recipeIndex, 1);
+  res.json(initialRecipe);
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
