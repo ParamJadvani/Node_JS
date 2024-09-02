@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Recipe</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        margin: 0 20px;
+      }
+
+      .form-control {
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        margin: 5px 0px;
+      }
+
+      .btn {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Add Recipe</h2>
+      <form id="recipe-form">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="preparationTime">Preparation Time:</label>
+          <input
+            type="number"
+            id="preparationTime"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="cookingTime">Cooking Time:</label>
+          <input type="number" id="cookingTime" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="imageUrl">Image URL:</label>
+          <input type="url" id="imageUrl" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="country">Country:</label>
+          <input type="text" id="country" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="veg">Veg:</label>
+          <input type="checkbox" id="veg" class="form-control" />
+        </div>
+        <input class="btn" type="submit" value="Add Recipe" />
+      </form>
+    </div>
+  </body>
+  <script>
+    const getData = (event) => {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const description = document.getElementById("description").value;
+      const preparationTime = document.getElementById("preparationTime").value;
+      const cookingTime = document.getElementById("cookingTime").value;
+      const imageUrl = document.getElementById("imageUrl").value;
+      const country = document.getElementById("country").value;
+      const veg = document.getElementById("veg").checked;
+
+      const recipe = {
+        name,
+        description,
+        preparationTime,
+        cookingTime,
+        imageUrl,
+        country,
+        veg,
+      };
+
+      addDataToDB(recipe);
+    };
+
+    const addDataToDB = async (data) => {
+      const res = await fetch("http://localhost:8090/recipe/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        alert("Recipe added successfully");
+        window.location.href = "index.html";
+      } else alert("Failed to add recipe");
+    };
+
+    document.getElementById("recipe-form").addEventListener("submit", getData);
+  </script>
+</html>
