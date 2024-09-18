@@ -1,7 +1,6 @@
 {
-  "name": "node_js",
+  "name": "student_user_managment",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,11 +8,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
-    "cowsay": "^1.6.0",
-    "express": "^4.19.2",
-    "mongodb": "^6.8.0",
-    "mongoose": "^8.5.0",
-    "react-hot-toast": "^2.4.1"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.6.2",
+    "path": "^0.12.7"
   }
 }
