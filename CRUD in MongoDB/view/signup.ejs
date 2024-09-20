@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+  </head>
+  <body>
+    <h1>Signup Page</h1>
+    <form action="/users/create" method="post" enctype="multipart/form-data">
+      <input
+        type="text"
+        aria-label="username"
+        name="username"
+        aria-labelledby="username"
+      />
+      <input type="text" aria-label="email" name="email" />
+      <input type="text" aria-label="password" name="password" />
+      <input type="file" aria-label="image" name="image" />
+      <input type="submit" value="submit" />
+    </form>
+  </body>
+</html>

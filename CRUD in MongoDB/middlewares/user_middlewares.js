@@ -1,11 +1,7 @@
-const check_Post_Data = (req, res, next) => {
-  const { username, email, password, age, address } = req.body;
-
-  if (!username || !email || !password || !age || !address) {
-    return res.status(400).send({ error: "All fields are required." });
-  }
-
-  next();
+const isAuth = (req, res, next) => {
+  const { id } = req.cookies;
+  if (id) return next();
+  return res.redirect("/users/login");
 };
 
-module.exports = check_Post_Data;
+module.exports = isAuth;

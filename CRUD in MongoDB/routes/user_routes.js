@@ -4,24 +4,35 @@
 
 // 2. Alternative Approach
 const { Router } = require("express");
-const check_Post_Data = require("../middlewares/user_middlewares");
 const {
   deleteData,
   getData,
   getDataById,
   createData,
   updateData,
+  upload,
+  LoginPage,
+  SignUpPage,
+  LoginData,
 } = require("../controllers/user_controllers");
+const isAuth = require("../middlewares/user_middlewares");
 const userRouter = Router();
 
-userRouter.get("/", getData);
+userRouter.get("/all", isAuth, getData);
 
-userRouter.get("/:id", getDataById);
+userRouter.get("/id:id", isAuth, getDataById);
 
-userRouter.post("/", check_Post_Data, createData);
+userRouter.get("/signup", SignUpPage);
 
-userRouter.patch("/:id", updateData);
+userRouter.get("/login", LoginPage);
 
-userRouter.delete("/:id", deleteData);
+userRouter.post("/create", upload.single("image"), createData);
+// userRouter.post("/create", upload.array("image", 5), createData);
+
+userRouter.post("/login", LoginData);
+
+userRouter.patch("/update:id", isAuth, updateData);
+
+userRouter.delete("/delete:id", isAuth, deleteData);
 
 module.exports = userRouter;
