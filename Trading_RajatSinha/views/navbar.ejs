@@ -1,0 +1,61 @@
+<nav id="unique-navbar" class="creative-nav">
+  <ul class="nav-list">
+    <li class="nav-item"><a href="/" class="nav-link home-link">Home</a></li>
+    <li class="nav-item">
+      <a href="/product/add" class="nav-link add-product-link">Add Product</a>
+    </li>
+    <li class="nav-item">
+      <a href="/users/login" class="nav-link login-link">Login</a>
+    </li>
+    <li class="nav-item">
+      <a href="/users/signup" class="nav-link signup-link">Signup</a>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  #unique-navbar {
+    background-color: #2c3e50;
+    padding: 15px 0;
+  }
+
+  #unique-navbar .nav-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+
+  #unique-navbar .nav-item {
+    margin: 0 10px;
+  }
+
+  #unique-navbar .nav-link {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+
+  #unique-navbar .nav-link:hover {
+    color: #3498db;
+  }
+
+  #unique-navbar .home-link::before {
+    content: "🏠 ";
+  }
+
+  #unique-navbar .add-product-link::before {
+    content: "➕ ";
+  }
+
+  #unique-navbar .login-link::before {
+    content: "🔑 ";
+  }
+
+  #unique-navbar .signup-link::before {
+    content: "✍️ ";
+  }
+</style>
