@@ -15,12 +15,10 @@ const isAuth = async (req, res, next) => {
 
     try {
       const decode = await jwt.verify(token, JWT_Secret);
-      if (decode) {
-        req.body.userId = decode.userId;
-        return next();
-      } else {
+      if (!decode) {
         return res.status(401).json({ message: "Token Not Valid" });
       }
+      return next();
     } catch (error) {
       console.error("Error verifying token:", error);
       return res.status(401).json({ message: "Error Verifying Token" });

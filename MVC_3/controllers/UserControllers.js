@@ -99,9 +99,39 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updates = req.body;
+
+    if (!userId || Object.keys(updates).length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Invalid request, no updates provided" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updates, {
+      new: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "User updated successfully",
+      updatedUser,
+    });
+  } catch (error) {
+    console.error("Error in patchUser:", error);
+    res.status(500).json({ message: "Server Error", error });
+  }
+};
+
 module.exports = {
   getAllData,
   signup,
   login,
   deleteUser,
+  updateUser,
 };

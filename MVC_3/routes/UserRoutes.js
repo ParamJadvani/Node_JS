@@ -3,6 +3,7 @@ const {
   signup,
   login,
   deleteUser,
+  updateUser,
 } = require("../controllers/UserControllers");
 const { isAuth } = require("../middleware/auth");
 
@@ -15,5 +16,7 @@ UserRouter.post("/signup", signup);
 UserRouter.post("/login", login);
 
 UserRouter.delete("/delete/:id", isAuth, deleteUser);
+
+UserRouter.patch("update/:id", isAuth, updateUser);
 
 module.exports = UserRouter;
