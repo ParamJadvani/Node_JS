@@ -6,10 +6,8 @@ const {
 
 const saveRoutes = require("express").Router();
 
-saveRoutes
-  .route("/")
-  .get(getSavedArticle)
-  .post(addSavedArticle)
-  .delete(removeSavedArticle);
+saveRoutes.route("/").get(getSavedArticle).post(addSavedArticle);
+
+saveRoutes.delete("/:id", removeSavedArticle);
 
 module.exports = saveRoutes;

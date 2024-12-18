@@ -32,8 +32,7 @@ const addSavedArticle = async (req, res) => {
 
 const removeSavedArticle = async (req, res) => {
   try {
-    const userId = req.user;
-    const savedArticle = await Save.findByIdAndDelete(userId);
+    const savedArticle = await Save.findByIdAndDelete(req.params.id);
 
     res.send(savedArticle);
   } catch (error) {
